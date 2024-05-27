@@ -11,6 +11,7 @@ import {
 import { Edit3, Trash2Icon } from 'lucide-react'
 import { Button } from "@/components/ui/button";
 import { removeOneAddress } from "@/store/removeOneAddress";
+import EmptyList from "@/components/empty-list";
 
 type Props = {
     type: string,
@@ -42,7 +43,7 @@ const EditAddress = () => {
             
     }, [addresses])
     return ( 
-        <div className="p-6">
+        <div className="p-6 h-[100vh]">
             <h1 className="text-3xl font-semibold">Endereços</h1>
             {
                 addresses.map(address => (
@@ -75,6 +76,11 @@ const EditAddress = () => {
                         </Card>
                     </div>
                 ))
+            }
+            {
+                addresses.length === 0 && (
+                    <EmptyList />
+                )
             }
         </div>
         
