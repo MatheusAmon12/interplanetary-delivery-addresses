@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card"
 import { Edit3, Trash2Icon } from 'lucide-react'
 import { Button } from "@/components/ui/button";
+import { removeOneAddress } from "@/store/removeOneAddress";
 
 type Props = {
     type: string,
@@ -19,6 +20,15 @@ type Props = {
 
 const EditAddress = () => {
     const [addresses, setAddresses] = useState<Props[]>([])
+
+    const handleAddressRemove = (address: string) => {
+        try {
+            removeOneAddress(address)
+            toast.success('Endereço removido com sucesso!')
+        } catch(error) {
+            toast.error('Error ao remover o endereço!')
+        }
+    }
 
     useEffect(() => {
         try {
@@ -30,7 +40,7 @@ const EditAddress = () => {
             toast.error('Error ao ler os endereços!')
         }
             
-    }, [])
+    }, [addresses])
     return ( 
         <div className="p-6">
             <h1 className="text-3xl font-semibold">Endereços</h1>
@@ -51,7 +61,10 @@ const EditAddress = () => {
                                 </CardDescription>
                             </CardHeader>
                             <CardFooter className="gap-4">
-                                <Button className="w-full cursor-pointer">
+                                <Button 
+                                    className="w-full cursor-pointer"
+                                    onClick={() => handleAddressRemove(address.address)}
+                                >
                                     <Trash2Icon />
                                 </Button>
 

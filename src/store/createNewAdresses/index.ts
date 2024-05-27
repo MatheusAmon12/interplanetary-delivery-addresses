@@ -9,7 +9,6 @@ interface AdressProps {
 export function createNewAdresses(newAddress: AdressProps) {
     try {
         const storedAdresses = getAllAdresses()
-        console.log(storedAdresses)
 
         if (storedAdresses.length > 0) {
             const addressAlreadyExists = storedAdresses.map((item) => {
@@ -18,7 +17,6 @@ export function createNewAdresses(newAddress: AdressProps) {
             })
 
             if (addressAlreadyExists){ 
-                console.log('existe')
                 throw new Error("Endereço já existe!")
             }
         }
