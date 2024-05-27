@@ -5,6 +5,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./ui/button";
+import { toast } from "sonner";
 
 const formSchema = z.object({
     type: z.string()
@@ -20,7 +21,7 @@ const formSchema = z.object({
 type FormDataSchema = z.infer<typeof formSchema>
 
 const Form = ({children}: {children: ReactNode}) => {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<FormDataSchema>({
+    const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormDataSchema>({
         resolver: zodResolver(formSchema)
     })
 
@@ -29,6 +30,7 @@ const Form = ({children}: {children: ReactNode}) => {
     const handleFormSubmit = (data: FormDataSchema) => {
         console.log(data)
         reset()
+        toast.success('Endereço adicionado com sucesso!')
     }
 
     return (
@@ -64,7 +66,7 @@ const Form = ({children}: {children: ReactNode}) => {
                         )
                     }
                 </div>
-                <Button className="w-full" type="submit">
+                <Button className="w-full cursor-pointer" type="submit" disabled={isSubmitting}>
                     CADASTRAR
                 </Button>
             </form>
