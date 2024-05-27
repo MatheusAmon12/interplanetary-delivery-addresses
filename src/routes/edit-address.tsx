@@ -37,16 +37,19 @@ const EditAddress = () => {
         navigate('/')
     }
 
-    useEffect(() => {
+    const fetchAddress = async() => {
         try {
-            const storage = getAllAdresses()
+            const storage = await getAllAdresses()
             console.log(storage)
     
             setAddresses(storage)
         } catch(error) {
             toast.error('Error ao ler os endereços!')
         }
-            
+    }
+
+    useEffect(() => {
+        fetchAddress()
     }, [])
     return ( 
         <div className="p-6 h-[100vh]">
