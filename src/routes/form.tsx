@@ -31,6 +31,8 @@ const Form = () => {
 
     const formRef = useRef<HTMLFormElement>(null)
 
+    const handleClickNavigate = () => navigate('/addresses')
+
     const handleFormSubmit = (data: FormDataSchema) => {
         
         try {
@@ -39,7 +41,7 @@ const Form = () => {
             toast.success('Endereço adicionado com sucesso!')
             
             reset()
-            
+
             navigate('/addresses')
         } catch (error) {
             toast.error('Não foi possivel adicionar o endereço')
@@ -82,8 +84,21 @@ const Form = () => {
                         )
                     }
                 </div>
-                <Button className="w-full cursor-pointer" type="submit" disabled={isSubmitting}>
+                <Button 
+                    className="w-full cursor-pointer" 
+                    type="submit" 
+                    disabled={isSubmitting}
+                >
                     CADASTRAR
+                </Button>
+
+                <Button 
+                    variant="ghost" 
+                    className="w-full cursor-pointer text-xs" 
+                    onClick={handleClickNavigate}
+                    disabled={isSubmitting}
+                >
+                    VER ENDEREÇOS
                 </Button>
             </form>
         </>
