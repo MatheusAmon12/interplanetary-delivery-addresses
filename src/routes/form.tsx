@@ -1,11 +1,13 @@
-import { ReactNode, useRef } from "react";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { useRef } from "react";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "./ui/button";
+import { Button } from "../components/ui/button";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { createNewAdresses } from "@/store/createNewAdresses";
 
 const formSchema = z.object({
     type: z.string()
@@ -20,7 +22,9 @@ const formSchema = z.object({
 
 type FormDataSchema = z.infer<typeof formSchema>
 
-const Form = ({children}: {children: ReactNode}) => {
+const Form = () => {
+    const navigate = useNavigate()
+
     const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormDataSchema>({
         resolver: zodResolver(formSchema)
     })
@@ -28,15 +32,26 @@ const Form = ({children}: {children: ReactNode}) => {
     const formRef = useRef<HTMLFormElement>(null)
 
     const handleFormSubmit = (data: FormDataSchema) => {
-        console.log(data)
         reset()
-        toast.success('Endereço adicionado com sucesso!')
+
+        try {
+            createNewAdresses(data)
+
+            toast.success('Endereço adicionado com sucesso!')
+
+            navigate('/addresses')
+        } catch (error) {
+            toast.error('Não foi possivel adicionar o endereço')
+        }
+        
     }
 
     return (
         <>
             <form ref={formRef} onSubmit={handleSubmit(handleFormSubmit)}  className="px-6 flex flex-col h-[100vh] justify-center items-center space-y-4">
-                {children}
+                <h1 className='text-3xl text-center font-semibold'>
+                    Detalhes do Endereço
+                </h1>
                 <div className="w-full space-y-2">
                     <Label htmlFor="type">Tipo de Endereço</Label>
                     <Input {...register('type')} placeholder="Armazém" />
