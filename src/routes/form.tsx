@@ -32,13 +32,14 @@ const Form = () => {
     const formRef = useRef<HTMLFormElement>(null)
 
     const handleFormSubmit = (data: FormDataSchema) => {
-        reset()
-
+        
         try {
             createNewAdresses(data)
-
+            
             toast.success('Endereço adicionado com sucesso!')
-
+            
+            reset()
+            
             navigate('/addresses')
         } catch (error) {
             toast.error('Não foi possivel adicionar o endereço')

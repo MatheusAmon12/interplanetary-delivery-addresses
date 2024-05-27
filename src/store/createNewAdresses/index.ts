@@ -12,18 +12,18 @@ export function createNewAdresses(newAddress: AdressProps) {
 
         if (storedAdresses.length > 0) {
             const addressAlreadyExists = storedAdresses.map((item) => {
-                if (item.address === newAddress.address)  return true
+                if (item.address === newAddress.address) { 
+                    return true
+                }
                 return false
             })
 
-            if (addressAlreadyExists){ 
+            if (addressAlreadyExists.includes(true)) { 
                 throw new Error("Endereço já existe!")
             }
         }
 
         const storage = JSON.stringify([...storedAdresses, newAddress])
-        console.log(storage)
-        
 
         localStorage.setItem('addresses', storage)
     } catch (error) {

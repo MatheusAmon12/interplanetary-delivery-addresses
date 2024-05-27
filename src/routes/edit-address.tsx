@@ -8,10 +8,11 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { Edit3, Trash2Icon } from 'lucide-react'
+import { ChevronLeft, Edit3, Trash2Icon } from 'lucide-react'
 import { Button } from "@/components/ui/button";
 import { removeOneAddress } from "@/store/removeOneAddress";
 import EmptyList from "@/components/empty-list";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
     type: string,
@@ -21,6 +22,7 @@ type Props = {
 
 const EditAddress = () => {
     const [addresses, setAddresses] = useState<Props[]>([])
+    const navigate = useNavigate()
 
     const handleAddressRemove = (address: string) => {
         try {
@@ -29,6 +31,10 @@ const EditAddress = () => {
         } catch(error) {
             toast.error('Error ao remover o endereço!')
         }
+    }
+
+    const handleNavigateBack = () => {
+        navigate('/')
     }
 
     useEffect(() => {
@@ -41,10 +47,20 @@ const EditAddress = () => {
             toast.error('Error ao ler os endereços!')
         }
             
-    }, [addresses])
+    }, [])
     return ( 
         <div className="p-6 h-[100vh]">
-            <h1 className="text-3xl font-semibold">Endereços</h1>
+            <div className="flex items-center gap-4">
+                <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    onClick={handleNavigateBack}
+                    className="cursor-pointer"
+                >
+                    <ChevronLeft />
+                </Button>
+                <h1 className="text-3xl font-semibold">Endereços</h1>
+            </div>
             {
                 addresses.map(address => (
                     <div className="space-y-4 py-6">
