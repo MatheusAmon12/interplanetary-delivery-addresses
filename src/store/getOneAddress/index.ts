@@ -1,6 +1,6 @@
 import { getAllAdresses } from "../getAllAddresses";
 
-export function updateAddress(address: string) {
+export function getOneAddress(address: string) {
     try {
         const storage = getAllAdresses()
 

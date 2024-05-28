@@ -70,7 +70,7 @@ const EditAddress = () => {
             </div>
             {
                 addresses.map(address => (
-                    <div className="space-y-4 py-6">
+                    <div key={address.address} className="space-y-4 py-6">
                         <Card>
                             <CardHeader>
                                 <CardTitle className="font-bold">

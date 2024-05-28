@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { z } from "zod";
@@ -8,7 +8,7 @@ import { Button } from "../components/ui/button";
 import { toast } from "sonner";
 import { useLocation, useNavigate } from "react-router-dom";
 import { createNewAdresses } from "@/store/createNewAddress";
-import { updateAddress } from "@/store/updateAddress";
+import { getOneAddress } from "@/store/getOneAddress";
 
 const formSchema = z.object({
     type: z.string()
@@ -24,6 +24,8 @@ const formSchema = z.object({
 type FormDataSchema = z.infer<typeof formSchema>
 
 const Form = () => {
+    const [locationState, setLocationState] = useState<FormDataSchema | undefined>()
+
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -44,6 +46,12 @@ const Form = () => {
         
         try {
             createNewAdresses(data)
+
+            if (locationState?.address) {
+                toast.success('Endereço atualizado com sucesso!')
+                navigate('/addresses')
+                return
+            }
             
             toast.success('Endereço adicionado com sucesso!')
             
@@ -59,13 +67,14 @@ const Form = () => {
     useEffect(() => {
         if (location.state) {
             const { address } = location.state
-            const storedAddress = updateAddress(address)
+            const storedAddress = getOneAddress(address)
             const initialValues = {
                 type: storedAddress[0].type || '',
                 address: storedAddress[0].address || '',
                 receiver: storedAddress[0].receiver || '',
             }
 
+            setLocationState(initialValues)
             reset(initialValues)
         }
     }, [location.state, reset])
@@ -105,10 +114,10 @@ const Form = () => {
                         )
                     }
                 </div>
+
                 <Button 
                     className="w-full cursor-pointer" 
-                    type="submit" 
-                    disabled={isSubmitting}
+                    type="submit"
                 >
                     CADASTRAR
                 </Button>
