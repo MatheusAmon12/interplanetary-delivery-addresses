@@ -1,4 +1,4 @@
-import { getAllAdresses } from "@/store/getAllAdresses";
+import { getAllAdresses } from "@/store/getAllAddresses";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import {
@@ -31,6 +31,10 @@ const EditAddress = () => {
         } catch(error) {
             toast.error('Error ao remover o endereço!')
         }
+    }
+
+    const handleAddressEdit = (address: string) => {
+        navigate('/', { state: { address } })
     }
 
     const handleNavigateBack = () => {
@@ -88,7 +92,10 @@ const EditAddress = () => {
                                     <Trash2Icon />
                                 </Button>
 
-                                <Button className="w-full cursor-pointer">
+                                <Button 
+                                    className="w-full cursor-pointer"
+                                    onClick={() => handleAddressEdit(address.address)}
+                                >
                                     <Edit3 />
                                 </Button>
                             </CardFooter>

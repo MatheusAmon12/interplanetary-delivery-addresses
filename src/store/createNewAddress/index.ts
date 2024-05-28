@@ -1,4 +1,4 @@
-import { getAllAdresses } from "../getAllAdresses";
+import { getAllAdresses } from "../getAllAddresses";
 
 interface AdressProps {
     type: string

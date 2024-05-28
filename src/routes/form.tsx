@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { z } from "zod";
@@ -6,8 +6,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../components/ui/button";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
-import { createNewAdresses } from "@/store/createNewAdresses";
+import { useLocation, useNavigate } from "react-router-dom";
+import { createNewAdresses } from "@/store/createNewAddress";
+import { updateAddress } from "@/store/updateAddress";
 
 const formSchema = z.object({
     type: z.string()
@@ -24,9 +25,15 @@ type FormDataSchema = z.infer<typeof formSchema>
 
 const Form = () => {
     const navigate = useNavigate()
+    const location = useLocation()
 
     const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormDataSchema>({
-        resolver: zodResolver(formSchema)
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            type: '',
+            address: '',
+            receiver: '',
+        }
     })
 
     const formRef = useRef<HTMLFormElement>(null)
@@ -48,6 +55,20 @@ const Form = () => {
         }
         
     }
+
+    useEffect(() => {
+        if (location.state) {
+            const { address } = location.state
+            const storedAddress = updateAddress(address)
+            const initialValues = {
+                type: storedAddress[0].type || '',
+                address: storedAddress[0].address || '',
+                receiver: storedAddress[0].receiver || '',
+            }
+
+            reset(initialValues)
+        }
+    }, [location.state, reset])
 
     return (
         <>
