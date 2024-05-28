@@ -72,41 +72,42 @@ const EditAddress = () => {
                 </Button>
                 <h1 className="text-3xl font-semibold">Endereços</h1>
             </div>
-            {
-                addresses.map(address => (
-                    <div key={address.address} className="space-y-4 py-6">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle className="font-bold">
-                                    <span className="block text-sm font-semibold">Endereço</span>
-                                    LOTE {address.address}
-                                </CardTitle>
-                                <CardDescription>
-                                    <span className="block text-sm font-semibold">Recebedor:</span>
-                                    <span>{address.receiver}</span>
-                                    <span className="block text-sm font-semibold">Tipo:</span>
-                                    <span>{address.type}</span>
-                                </CardDescription>
-                            </CardHeader>
-                            <CardFooter className="gap-4">
-                                <Button 
-                                    className="w-full cursor-pointer"
-                                    onClick={() => handleAddressRemove(address.address)}
-                                >
-                                    <Trash2Icon />
-                                </Button>
-
-                                <Button 
-                                    className="w-full cursor-pointer"
-                                    onClick={() => handleAddressEdit(address.address)}
-                                >
-                                    <Edit3 />
-                                </Button>
-                            </CardFooter>
-                        </Card>
-                    </div>
-                ))
-            }
+            <div className="lg:grid lg:grid-cols-3 lg:gap-4 lg:px-20">
+                {
+                    addresses.map(address => (
+                        <div key={address.address} className="space-y-4 py-6">
+                            <Card>
+                                <CardHeader>
+                                    <CardTitle className="font-bold">
+                                        <span className="block text-sm font-semibold">Endereço</span>
+                                        LOTE {address.address}
+                                    </CardTitle>
+                                    <CardDescription>
+                                        <span className="block text-sm font-semibold">Recebedor:</span>
+                                        <span>{address.receiver}</span>
+                                        <span className="block text-sm font-semibold">Tipo:</span>
+                                        <span>{address.type}</span>
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardFooter className="gap-4">
+                                    <Button
+                                        className="w-full cursor-pointer"
+                                        onClick={() => handleAddressRemove(address.address)}
+                                    >
+                                        <Trash2Icon />
+                                    </Button>
+                                    <Button
+                                        className="w-full cursor-pointer"
+                                        onClick={() => handleAddressEdit(address.address)}
+                                    >
+                                        <Edit3 />
+                                    </Button>
+                                </CardFooter>
+                            </Card>
+                        </div>
+                    ))
+                }
+            </div>
             {
                 addresses.length === 0 && (
                     <EmptyList />

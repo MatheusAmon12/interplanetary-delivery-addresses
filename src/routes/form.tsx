@@ -82,7 +82,7 @@ const Form = () => {
 
     return (
         <>
-            <form ref={formRef} onSubmit={handleSubmit(handleFormSubmit)}  className="px-6 flex flex-col h-[100vh] justify-center items-center space-y-4">
+            <form ref={formRef} onSubmit={handleSubmit(handleFormSubmit)}  className="px-6 lg:px-96 flex flex-col h-[100vh] justify-center items-center space-y-4">
                 <h1 className='text-3xl text-center font-semibold'>
                     Detalhes do Endereço
                 </h1>
