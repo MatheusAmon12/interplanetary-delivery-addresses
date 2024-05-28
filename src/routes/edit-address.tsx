@@ -28,6 +28,8 @@ const EditAddress = () => {
         try {
             removeOneAddress(address)
             toast.success('Endereço removido com sucesso!')
+            
+            setAddresses(prevState => prevState.filter(item => item.address !== address))
         } catch(error) {
             toast.error('Error ao remover o endereço!')
         }
