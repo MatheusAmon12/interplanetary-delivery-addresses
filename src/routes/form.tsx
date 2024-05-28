@@ -1,28 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { 
+    useEffect, 
+    useRef, 
+    useState 
+} from "react";
+
+import { useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../components/ui/button";
 import { toast } from "sonner";
-import { useLocation, useNavigate } from "react-router-dom";
+
 import { createNewAdresses } from "@/store/createNewAddress";
 import { getOneAddress } from "@/store/getOneAddress";
 import { AppError } from "@/utils/AppError";
-
-const formSchema = z.object({
-    type: z.string()
-        .max(15, "O tipo deve ter no maximo 15 caracteres")
-        .min(3, "O tipo deve ter no minimo 3 caracteres"),
-    address: z.string()
-        .min(4, "O endereço do lote deve ter no minimo 4 caracteres"),
-    receiver: z.string()
-        .max(20, "O nome do recebedor deve ter no maximo 20 caracteres")
-        .min(3, "O nome do recebedor deve ter no minimo 3 caracteres")
-})
-
-type FormDataSchema = z.infer<typeof formSchema>
+import { formSchema } from "@/utils/formSchema";
+import { FormDataSchema } from "@/@types/formDataSchema";
 
 const Form = () => {
     const [locationState, setLocationState] = useState<FormDataSchema | undefined>()

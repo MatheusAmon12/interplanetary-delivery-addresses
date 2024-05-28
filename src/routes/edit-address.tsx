@@ -1,6 +1,6 @@
-import { getAllAdresses } from "@/store/getAllAddresses";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+
 import {
     Card,
     CardDescription,
@@ -8,12 +8,20 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { ChevronLeft, Edit3, Trash2Icon } from 'lucide-react'
-import { Button } from "@/components/ui/button";
-import { removeOneAddress } from "@/store/removeOneAddress";
-import EmptyList from "@/components/empty-list";
-import { useNavigate } from "react-router-dom";
+
+import { 
+    ChevronLeft, 
+    Edit3, 
+    Trash2Icon 
+} from 'lucide-react'
+
 import { Address } from "@/@types/address";
+import { removeOneAddress } from "@/store/removeOneAddress";
+import { getAllAdresses } from "@/store/getAllAddresses";
+
+import EmptyList from "@/components/empty-list";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const EditAddress = () => {
     const [addresses, setAddresses] = useState<Address[]>([])
