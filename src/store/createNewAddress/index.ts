@@ -1,13 +1,8 @@
 import { AppError } from "@/utils/AppError";
 import { getAllAdresses } from "../getAllAddresses";
+import { Address } from "@/@types/address";
 
-interface AdressProps {
-    type: string
-    address: string,
-    receiver: string,
-}
-
-export function createNewAdresses(newAddress: AdressProps) {
+export function createNewAdresses(newAddress: Address) {
     const storedAdresses = getAllAdresses()
 
     if (storedAdresses.length > 0) {

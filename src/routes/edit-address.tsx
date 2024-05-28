@@ -13,22 +13,17 @@ import { Button } from "@/components/ui/button";
 import { removeOneAddress } from "@/store/removeOneAddress";
 import EmptyList from "@/components/empty-list";
 import { useNavigate } from "react-router-dom";
-
-type Props = {
-    type: string,
-    receiver: string,
-    address: string,
-}
+import { Address } from "@/@types/address";
 
 const EditAddress = () => {
-    const [addresses, setAddresses] = useState<Props[]>([])
+    const [addresses, setAddresses] = useState<Address[]>([])
     const navigate = useNavigate()
 
     const handleAddressRemove = (address: string) => {
         try {
             removeOneAddress(address)
             toast.success('Endereço removido com sucesso!')
-            
+
             setAddresses(prevState => prevState.filter(item => item.address !== address))
         } catch(error) {
             toast.error('Error ao remover o endereço!')
