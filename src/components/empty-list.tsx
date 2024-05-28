@@ -7,7 +7,7 @@ const EmptyList = () => {
     const handleClickNavigate = () => navigate('/')
 
     return ( 
-        <div className="text-center h-full flex flex-col justify-center items-center text-muted-foreground space-y-4">
+        <div className="text-center h-full flex flex-col justify-center items-center text-muted-foreground space-y-4 lg:px-96">
             <h1 className="text-md">Adicione endereços para preencher sua lista.</h1>
             <Button 
                 className="w-full cursor-pointer" 
