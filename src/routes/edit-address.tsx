@@ -41,10 +41,9 @@ const EditAddress = () => {
         navigate('/')
     }
 
-    const fetchAddress = async() => {
+    const fetchAddress = () => {
         try {
-            const storage = await getAllAdresses()
-            console.log(storage)
+            const storage = getAllAdresses()
     
             setAddresses(storage)
         } catch(error) {

@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { useLocation, useNavigate } from "react-router-dom";
 import { createNewAdresses } from "@/store/createNewAddress";
 import { getOneAddress } from "@/store/getOneAddress";
+import { AppError } from "@/utils/AppError";
 
 const formSchema = z.object({
     type: z.string()
@@ -59,7 +60,12 @@ const Form = () => {
 
             navigate('/addresses')
         } catch (error) {
-            toast.error('Não foi possivel adicionar o endereço')
+            if (error instanceof AppError) {
+                toast.error(error.message)
+            } else {
+                console.log(error)
+                toast.error('Não foi possivel adicionar o endereço!')
+            }
         }
         
     }
